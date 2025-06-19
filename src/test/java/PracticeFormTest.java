@@ -6,12 +6,11 @@ import java.io.File;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormTest {
     @BeforeAll()
-    static void beforeAll() {
+    static void onSetUpConfigurations() {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
@@ -21,6 +20,10 @@ public class PracticeFormTest {
     @Test
     void fillPracticeFormTest() {
         open("/automation-practice-form");
+        // убирает рекламу
+        executeJavaScript("$('footer').remove();");
+        executeJavaScript("$('#fixedban').remove();");
+        //заполняем форму
         $("#firstName").setValue("Alex");
         $("#lastName").setValue("Potapov");
         $("#userEmail").setValue("alex@ya.ru");
@@ -40,8 +43,7 @@ public class PracticeFormTest {
         $(byText("Reading")).click();
         $(byText("Music")).click();
 
-        $("#uploadPicture").uploadFile(new File("src/test/Ob1aUY2U.jpeg"));
-
+        $("#uploadPicture").uploadFromClasspath("Ob1aUY2U.jpeg");
         $("#currentAddress").setValue("123409, Russia, Moscow");
         $("#state .css-1wy0on6").click();
         $(byText("Rajasthan")).click();

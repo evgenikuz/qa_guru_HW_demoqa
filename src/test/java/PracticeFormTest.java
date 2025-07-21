@@ -70,5 +70,6 @@ public class PracticeFormTest {
         $("#closeLargeModal").click();
         $("h1").shouldHave(text("Practice Form"));
 
+
     }
 }

@@ -25,6 +25,8 @@ public class PracticeFormRemoteTest {
     @AfterEach
     void  addAttachments() {
         Attach.screenshotAs("Last screenshot");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
     }
 
     @Test

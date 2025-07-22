@@ -111,6 +111,7 @@ public class PracticeFormRemoteTest {
             $("h1").shouldHave(text("Practice Form"));
         });
         step("check modal is closed",() -> {
+            sleep(1000);
             $("h1").shouldHave(text("Practice Form"));
         });
 

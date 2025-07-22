@@ -46,36 +46,55 @@ public class PracticeFormRemoteTest {
     void fillPracticeFormTest() {
         step("open form", () -> {
             open("/automation-practice-form");
+        });
+        step("remove ads", () -> {
             executeJavaScript("$('footer').remove();");
             executeJavaScript("$('#fixedban').remove();");
         });
-        step("fill form", () -> {
+
+        step("fill name", () -> {
             $("#firstName").setValue("Alex");
             $("#lastName").setValue("Potapov");
+        });
+        step("fill contact info", () -> {
             $("#userEmail").setValue("alex@ya.ru");
             $(byText("Other")).click();
             $("#userNumber").setValue("8800345645");
+        });
+        step("fill date of birth", () -> {
             $("#dateOfBirthInput").click();
             $(".react-datepicker__month-container .react-datepicker__year-select").selectOption("1912");
             $(".react-datepicker__month-container .react-datepicker__month-select").selectOption("September");
             $(".react-datepicker__month-container .react-datepicker__day--007").click();
+        });
+        step("fill subjects",() -> {
             $("#subjectsInput").setValue("m");
             $(byText("Maths")).click();
             $("#subjectsInput").setValue("h");
             $(byText("Hindi")).click();
+        });
+        step("fill hobbies",() -> {
             $(byText("Reading")).click();
             $(byText("Music")).click();
+        });
+        step("upload picture",() -> {
             $("#uploadPicture").uploadFromClasspath("Ob1aUY2U.jpeg");
+        });
+        step("fill address",() -> {
             $("#currentAddress").setValue("123409, Russia, Moscow");
             $("#state .css-1wy0on6").click();
             $(byText("Rajasthan")).click();
             $("#city .css-1wy0on6").click();
             $(byText("Jaipur")).click();
+        });
+        step("submit form",() -> {
             $("#submit").click();
         });
-        step("verify results", () -> {
-
+        step("check modal is opened",() -> {
             $(".modal-content #example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+        });
+
+        step("verify results in modal", () -> {
             $(".modal-body tbody tr:nth-child(1)").shouldHave(text("Student Name Alex Potapov"));
             $(".modal-body tbody tr:nth-child(2)").shouldHave(text("Student Email alex@ya.ru"));
             $(".modal-body tbody tr:nth-child(3)").shouldHave(text("Gender Other"));
@@ -86,7 +105,12 @@ public class PracticeFormRemoteTest {
             $(".modal-body tbody tr:nth-child(8)").shouldHave(text("Picture Ob1aUY2U.jpeg"));
             $(".modal-body tbody tr:nth-child(9)").shouldHave(text("Address 123409, Russia, Moscow"));
             $(".modal-body tbody tr:nth-child(10)").shouldHave(text("State and City Rajasthan Jaipur"));
+        });
+        step("close modal", () -> {
             $("#closeLargeModal").click();
+            $("h1").shouldHave(text("Practice Form"));
+        });
+        step("check modal is closed",() -> {
             $("h1").shouldHave(text("Practice Form"));
         });
 
